@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+.main-container {
+    padding-top: 100px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow:hidden;
+ }
+
+ .footer {
+  height: 50px;
+  text-align: center;
+} 
+
+.badge {
+  padding-left: 7px;
+  padding-right: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;  
+}

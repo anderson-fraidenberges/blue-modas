@@ -1,0 +1,27 @@
+<div class="container main-container" *ngIf="order != null">
+  <div class="card-body">
+    <div class="row"><b>Pedido: {{ order.id }}</b></div>
+    <div class="row">Nome: {{ order.name }}</div>
+    <div class="row">E-mail: {{ order.email }}</div>
+    <div class="row">Telefone: {{ order.phone }}</div>
+    <div class="row">Data Pedido: {{ order.orderDate }}</div>
+    <div class="row">Quantidade Itens: {{ order.totalQuantity }}</div>
+    <div class="row">Total Pedido: {{ order.totalOrder | currency:'BRL':true:'1.2-2':'pt' }}</div>
+  </div>    
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of order.products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.quantity }} x </td>
+          <td>{{ product.price | currency:'BRL':true:'1.2-2':'pt' }}</td>
+        </tr>
+      </tbody>
+    </table>  
+</div>

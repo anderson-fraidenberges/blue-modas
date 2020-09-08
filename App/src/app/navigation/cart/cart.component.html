@@ -1,0 +1,86 @@
+<div class="container main-container">
+  <div class="container">
+    <div class="col-7 float-right" *ngIf="!productCartList.length">
+      <span>Não há produtos selecionados</span>
+    </div>
+    <!--Lista produtos carrinho-->
+    <div *ngIf="mode=='list'">
+      <table class="table table-striped" *ngIf="productCartList.length">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productCartList">
+            <td>{{product.name}}</td>
+            <td><input type="number" min="0" class="form-control" [(ngModel)]="product.quantity"
+                (change)="onChange(product)" value=product.quantity /></td>
+            <td>{{ product.price | currency:'BRL':true:'1.2-2':'pt' }}</td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="productCartList.length">
+          <tr>
+            <td colspan="3"><span class="float-right">Total:
+                {{ totalValue | currency:'BRL':true:'1.2-2':'pt' }}</span></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="form-group d-flex flex-row" *ngIf="productCartList.length">
+        <div class="p-1">
+          <a class="btn btn-primary" [routerLink]="['/products']" *ngIf="productCartList.length">Continuar Comprando</a>
+        </div>
+        <div class="p-1 float-left">
+          <a class="btn btn-primary" (click)="onChangeMode('modal')" *ngIf="productCartList.length">Finalizar Compra</a>
+        </div>
+      </div>
+    </div>
+    <!--Fim Lista produtos carrinho-->
+
+    <!--Form Dados Comprador-->
+    <div class="container h-100 modalForm" *ngIf="mode=='modal'">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+          <!-- Form -->
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h1>Dados do comprador</h1>
+            <p><small>*Todos os campos são obrigatórios</small></p>
+            <div class="form-group">
+              <label>Nome:</label>
+              <input type="text" class="form-control" placeholder="Nome" maxlength="100" formControlName="name">
+              <small *ngIf="form.controls.name.invalid && !form.controls.name.pristine"
+                class="message-required-form-field">Nome obrigatório</small>
+            </div>
+            <div class="form-group">
+              <label>E-mail:</label>
+              <input type="email" class="form-control" placeholder="E-mail" maxlength="70" formControlName="email">
+              <small *ngIf="form.controls.email.invalid && !form.controls.email.pristine"
+                class="message-invalid-form-field">Email Inválido</small>
+            </div>
+            <div class="form-group">
+
+              <label>Telefone:</label>
+              <input type="tel" class="form-control" phoneMask placeholder="Telefone" maxlength="20"
+                formControlName="phone">
+              <small *ngIf="form.controls.phone.invalid && !form.controls.phone.pristine"
+                class="message-invalid-form-field">Telefone Inválido</small>
+
+            </div>
+            <div class="form-group d-flex flex-row">
+              <div class="p-1">
+                <button class="btn btn-primary p-2" (click)="onChangeMode('list')">Cancelar</button>
+              </div>
+              <div class="p-1">
+                <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">Finalizar</button>
+              </div>
+            </div>
+          </form>
+          <!-- Form end -->
+        </div>
+      </div>
+    </div>
+    <!--Fim Form Dados Comprador-->
+  </div>
+</div>
